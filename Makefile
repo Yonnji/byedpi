@@ -12,3 +12,14 @@ windows:
 
 clean:
 	rm -f $(TARGET) *.o
+
+install:
+	install -DZv ciadpi.service -t /etc/systemd/system
+	install -DZv ciadpi -t /usr/local/bin
+	systemctl daemon-reload
+
+uninstall:
+	systemctl disable --now ciadpi.service
+	rm -fv /etc/systemd/system/ciadpi.service
+	rm -fv /usr/local/bin/ciadpi
+	systemctl daemon-reload
